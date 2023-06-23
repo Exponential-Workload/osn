@@ -44,7 +44,7 @@ type INotification = {
 }
 
 /** Notification Type | giant list ik */
-export const enum NotificationType {
+export enum NotificationType {
   /** Success */
   Success = 'success',
   /** Success */
