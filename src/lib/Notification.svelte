@@ -55,10 +55,12 @@
         colour="#fff"
       />
       <div
-        style={[notification.title, notification.message].filter((v) => !!v)
-          .length <= 1
+        style="max-width: 246px;{[
+          notification.title,
+          notification.message,
+        ].filter((v) => !!v).length <= 1
           ? 'display:flex;align-items:center;justify-content:center;'
-          : ''}
+          : ''}"
       >
         {#if notification.title}
           <h2
@@ -77,7 +79,7 @@
       </div>
     </div>
     {#if actions.length > 0}
-      <div class="pt-1" style="padding-left: 38px;">
+      <div class="pt-1" style="padding-left: 38px;margin-left: 8px;">
         {#each actions as action}
           <button
             class="bg-slate-900 mr-2 rounded-md py-1 px-1.5 text-xs text-neutral-300"
