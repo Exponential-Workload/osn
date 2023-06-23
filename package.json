@@ -1,6 +1,6 @@
 {
   "name": "opensveltenotif",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && npm run package",
@@ -44,5 +44,6 @@
   "dependencies": {
     "@steeze-ui/heroicons": "^2.2.2",
     "showdown": "^2.1.0"
-  }
+  },
+  "homepage": "https://github.com/exponential-workload/osn"
 }
