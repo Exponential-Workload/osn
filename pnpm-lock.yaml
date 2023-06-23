@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@steeze-ui/heroicons':
-    specifier: ^2.2.2
-    version: 2.2.2
   showdown:
     specifier: ^2.1.0
     version: 2.1.0
@@ -313,10 +310,6 @@ packages:
   /@polka/url@1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
-
-  /@steeze-ui/heroicons@2.2.2:
-    resolution: {integrity: sha512-VUkgSAbjLzsEuF4kDQDESANb/NNxqhkOMnrzD1VhB3tSGr7wVZ5FKS7aM2QZcKXjziwR6dbt7Nhs3fpZhqOi1A==}
-    dev: false
 
   /@sveltejs/adapter-auto@2.1.0(@sveltejs/kit@1.20.5):
     resolution: {integrity: sha512-o2pZCfATFtA/Gw/BB0Xm7k4EYaekXxaPGER3xGSY3FvzFJGTlJlZjBseaXwYSM94lZ0HniOjTokN3cWaLX6fow==}
