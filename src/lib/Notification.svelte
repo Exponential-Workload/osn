@@ -70,34 +70,33 @@
           </h2>
         {/if}
         {#if notification.message}
-          <div style="font-size:13px;opaciity:0.7;">
+          <div style="font-size:13px;opacity:0.7;">
             {#if notification.message}
               {@html md.makeHtml(notification.message)}
             {/if}
           </div>
         {/if}
+
+        <div class="buttons" style="margin-top:6px">
+          {#each actions as action}
+            <button
+              class="bg-slate-900 mr-2 rounded-md py-1 px-1.5 text-xs text-neutral-300"
+              on:click={() => {
+                if (action.callback) {
+                  const result = (
+                    callbacks[action.callback] ??
+                    generateFallbackCallback(action.callback)
+                  )(action, notification);
+                  if (result) notification.dismiss();
+                }
+              }}
+            >
+              {action.name}
+            </button>
+          {/each}
+        </div>
       </div>
     </div>
-    {#if actions.length > 0}
-      <div class="pt-1" style="padding-left: 38px;margin-left: 8px;">
-        {#each actions as action}
-          <button
-            class="bg-slate-900 mr-2 rounded-md py-1 px-1.5 text-xs text-neutral-300"
-            on:click={() => {
-              if (action.callback) {
-                const result = (
-                  callbacks[action.callback] ??
-                  generateFallbackCallback(action.callback)
-                )(action, notification);
-                if (result) notification.dismiss();
-              }
-            }}
-          >
-            {action.name}
-          </button>
-        {/each}
-      </div>
-    {/if}
   </div>
 </div>
 
