@@ -85,4 +85,4 @@ An action that can be added to a notification.
 
 ## Attribution
 
-This is heavily based on the notification system implemented in [Moon Client](https://github.com/moon-client/launcher-oss) by myself.
+This is heavily based on the notification system implemented in [Moon Client](https://moonclient.xyz)'s [Launcher](https://github.com/moon-client/launcher-oss) by myself.
