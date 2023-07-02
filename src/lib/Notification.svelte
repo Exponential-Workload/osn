@@ -150,25 +150,8 @@
     padding-top: 0.25rem;
   }
 
-  blockquote,
-  dl,
-  dd,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  hr,
-  figure,
-  p,
-  pre {
+  h2 {
     margin: 0;
-  }
-
-  text-neutral-300 {
-    --tw-text-opacity: 1;
-    color: rgb(212 212 212 / var(--tw-text-opacity));
   }
 
   .text-xs {
@@ -199,31 +182,22 @@
     margin-right: 0.5rem;
   }
 
-  button,
-  [role='button'] {
+  button {
     cursor: pointer;
     border: 0px none #0000;
   }
 
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
+  button {
     -webkit-appearance: button;
     background-color: transparent;
     background-image: none;
   }
 
-  button,
-  select {
+  button {
     text-transform: none;
   }
 
-  button,
-  input,
-  optgroup,
-  select,
-  textarea {
+  button {
     font-family: inherit;
     font-size: 100%;
     font-weight: inherit;
@@ -233,11 +207,6 @@
     padding: 0;
   }
 
-  .text-neutral-300 {
-    --tw-text-opacity: 1;
-    color: rgb(212 212 212 / var(--tw-text-opacity));
-  }
-
   .text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -265,30 +234,12 @@
   .mr-2 {
     margin-right: 0.5rem;
   }
-  button,
-  [role='button'] {
+  button {
     cursor: pointer;
-  }
-
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
     -webkit-appearance: button;
     background-color: transparent;
     background-image: none;
-  }
-
-  button,
-  select {
     text-transform: none;
-  }
-
-  button,
-  input,
-  optgroup,
-  select,
-  textarea {
     font-family: inherit;
     font-size: 100%;
     font-weight: inherit;
