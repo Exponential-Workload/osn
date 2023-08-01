@@ -8,6 +8,9 @@
   } from './NotifHandler.js';
   import Notification from './Notification.svelte';
   import { fade, fly } from 'svelte/transition';
+
+  export let zindex = 1000000;
+
   // global utility callbacks
   registerCallback('dismiss-notif', () => true);
   registerCallback('copy-text', (action, notif) => {
@@ -24,7 +27,7 @@ Message: ${notif.message}`);
   });
 </script>
 
-<div class="notifs">
+<div class="notifs" style="z-index:{zindex};">
   {#each $notificationStore as notif}
     <div in:fade={{ duration: 200 }} out:fly={{ x: 100, duration: 300 }}>
       <Notification notification={notif} />
