@@ -17,8 +17,10 @@ export type NotificationAction = {
 const getId = (() => {
   const base = Date.now();
   let id = 0;
-  const rng = jsf32(Date.now() + Math.random(), Math.random(), Math.random(), Math.random());
-  return () => `${base.toString(16)}-${(++id).toString(16)}-${rng(0, 1e9).toString(36)}`;
+  const seed = new Uint32Array(4);
+  crypto.getRandomValues(seed);
+  const rng = jsf32(seed[0], seed[1], seed[2], seed[3]);
+  return () => `${base.toString(16)}-${(++id).toString(16)}-${rng(0, 1e9).toString(36)}#${rng(0, 1e9).toString(36)}`;
 })();
 
 /** Notification Interface */
