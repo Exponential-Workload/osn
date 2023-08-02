@@ -12,6 +12,7 @@
   export let zindex = 1000000;
 
   // global utility callbacks
+  registerCallback('void', () => false);
   registerCallback('dismiss-notif', () => true);
   registerCallback('copy-text', (action, notif) => {
     if (navigator.clipboard) {

@@ -2,7 +2,6 @@
   import showdown from 'showdown';
   import {
     callbacks,
-    registerCallback,
     type Notification,
     NotificationType,
   } from './NotifHandler.js';

@@ -43,6 +43,8 @@ type INotification = {
   actions?: NotificationAction[],
   /** Icon */
   icon?: ComponentType | null,
+  /** Can Dismiss */
+  dismissable?: boolean,
 }
 
 /** Notification Type | giant list ik */
@@ -73,75 +75,84 @@ export enum NotificationType {
 
 /** Notification Class */
 export class Notification implements INotification {
+  /** Notification expiry */
+  private _expires_at: number = 0;
+  /** Notification duration */
+  private _duration: number = 0;
+  /** Notification timestamp */
+  private _timestamp: number = 0;
   /** Notification ID */
-  id: string = '';
+  public id: string = '';
   /** Notification title */
-  title: string | null = null;
+  public title: string | null = null;
   /** Notification message */
-  message: string | null = null;
+  public message: string | null = null;
   /** Notification type */
-  type: NotificationType = NotificationType.Info;
-  /** Notification duration */
-  #duration: number = 0;
+  public type: NotificationType = NotificationType.Info;
   /** Icon */
-  icon: ComponentType | null = null;
+  public icon: ComponentType | null = null;
   /** Notification duration */
-  get duration(): number {
-    return this.#duration;
+  public get duration(): number {
+    return this._duration;
   }
   /** Notification duration */
-  set duration(duration: number) {
-    this.#duration = duration;
-    this.#expires_at = this.timestamp + this.duration;
+  public set duration(duration: number) {
+    this._duration = duration;
+    this._expires_at = this.timestamp + this.duration;
   }
   /** Notification timestamp */
-  #timestamp: number = 0;
-  /** Notification timestamp */
-  get timestamp(): number {
-    return this.#timestamp;
+  public get timestamp(): number {
+    return this._timestamp;
   }
   /** Notification expiry */
-  #expires_at: number = 0;
-  /** Notification expiry */
-  get expires_at(): number {
-    return this.#expires_at;
+  public get expires_at(): number {
+    return this._expires_at;
   }
   /** Notification expiry */
-  set expires_at(expires_at: number) {
-    this.#expires_at = expires_at;
-    this.#duration = this.expires_at - this.timestamp;
+  public set expires_at(expires_at: number) {
+    this._expires_at = expires_at;
+    this._duration = this.expires_at - this.timestamp;
   }
   /** Dismissable */
-  dismissable: boolean = true;
+  public dismissable: boolean = true;
   /** Notification Actions */
-  actions: NotificationAction[] = [];
+  public actions: NotificationAction[] = [];
 
   /** Notification Class Constructor */
-  constructor(title: string | null, message: string | null = null, type: NotificationType | null = NotificationType.Info, duration: number | null = 5000, dismissable: boolean = true, actions: NotificationAction[] = [], icon: ComponentType | null = null) {
+  public constructor(title: string | null, message: string | null = null, type: NotificationType | null = NotificationType.Info, duration: number | null = 5000, dismissable: boolean = true, actions: NotificationAction[] = [], icon: ComponentType | null = null) {
     this.id = getId();
     if (message === null && title === null) throw new Error('Notification must have a message or a title')
     this.title = title;
     this.message = message;
     this.type = type ?? NotificationType.Info;
     this.duration = duration ?? 5000;
-    this.#timestamp = Date.now();
-    this.#expires_at = this.timestamp + this.duration;
+    this._timestamp = Date.now();
+    this._expires_at = this.timestamp + this.duration;
     this.dismissable = dismissable;
     this.actions = actions;
     this.icon = icon;
   }
 
+  /** Alternative Constructor */
+  public static fromObject(obj: Partial<INotification>): Notification {
+    let notif = new Notification(obj.title ?? null, obj.message ?? null, obj.type ?? null, obj.duration ?? null, obj.dismissable ?? true, obj.actions ?? [], obj.icon ?? null);
+    notif.id = obj.id ?? notif.id;
+    notif._timestamp = obj.timestamp ?? notif.timestamp;
+    notif._expires_at = obj.expires_at ?? notif.expires_at;
+    return notif;
+  }
+
   /** Import from Notification */
-  static import(notification: INotification): Notification {
-    let notif = new Notification(notification.title, notification.message, notification.type, notification.duration);
+  public static import(notification: INotification): Notification {
+    let notif = new Notification(notification.title, notification.message, notification.type, notification.duration, notification.dismissable);
     notif.id = notification.id ?? notif.id;
-    notif.#timestamp = notification.timestamp;
-    notif.#expires_at = notification.expires_at;
+    notif._timestamp = notification.timestamp;
+    notif._expires_at = notification.expires_at;
     return notif;
   }
 
   /** Validate INotification */
-  static isValidExport(notification: INotification): boolean {
+  public static isValidExport(notification: INotification): boolean {
     if (typeof notification !== 'object') return false;
     if (typeof notification.id !== 'number') return false;
     if (typeof notification.title !== 'string' && notification.title !== null) return false;
@@ -155,12 +166,12 @@ export class Notification implements INotification {
   }
 
   /** Check if is expired */
-  isExpired(): boolean {
+  public isExpired(): boolean {
     return Date.now() > this.expires_at;
   }
 
   /** Export */
-  export(): string {
+  public export(): string {
     return JSON.stringify({
       id: this.id,
       title: this.title,
@@ -169,20 +180,21 @@ export class Notification implements INotification {
       duration: this.duration,
       timestamp: this.timestamp,
       expires_at: this.expires_at,
+      dismissable: this.dismissable,
     })
   }
 
   /** Get Expiration Progress */
-  getExpirationProgress(): number {
+  public getExpirationProgress(): number {
     return (Date.now() - this.timestamp) / this.duration;
   }
 
   /** Destroy */
-  destroy(): void {
+  public destroy(): void {
     removeNotification(this.id);
   }
   /** Dismiss */
-  dismiss(): void {
+  public dismiss(): void {
     this.destroy()
   }
 }
